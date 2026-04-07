@@ -28,78 +28,103 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-blue-900">PayFlow</h1>
-          <p className="text-gray-500 mt-2">Create your account</p>
+    <div style={{ minHeight: '100vh', display: 'flex' }}>
+
+      {/* Left Panel */}
+      <div style={{ width: '50%', backgroundColor: '#003168', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#FFBE00', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ color: '#003168', fontWeight: 'bold', fontSize: '18px' }}>P</span>
+          </div>
+          <span style={{ color: 'white', fontSize: '22px', fontWeight: 'bold' }}>PayFlow</span>
         </div>
 
-        {error && (
-          <div className="bg-red-50 text-red-600 p-3 rounded mb-4 text-sm">
-            {error}
+        <div>
+          <h2 style={{ color: 'white', fontSize: '40px', fontWeight: 'bold', lineHeight: '1.2', marginBottom: '16px' }}>
+            Your money, <br /><span style={{ color: '#FFBE00' }}>your way.</span>
+          </h2>
+          <p style={{ color: '#93C5FD', fontSize: '18px' }}>Join thousands of users managing payments with PayFlow.</p>
+        </div>
+
+        <div style={{ display: 'flex', gap: '24px' }}>
+          {['Secure', 'Fast', 'Reliable'].map(item => (
+            <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ width: '20px', height: '20px', borderRadius: '50%', backgroundColor: '#FFBE00', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ color: '#003168', fontSize: '11px', fontWeight: 'bold' }}>✓</span>
+              </div>
+              <span style={{ color: '#93C5FD', fontSize: '14px' }}>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Right Panel */}
+      <div style={{ width: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', padding: '48px' }}>
+        <div style={{ width: '100%', maxWidth: '400px' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#1A1A1A', marginBottom: '8px' }}>Create account</h1>
+          <p style={{ color: '#666', marginBottom: '32px' }}>Get started with PayFlow in minutes.</p>
+
+          {error && (
+            <div style={{ backgroundColor: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626', padding: '12px 16px', borderRadius: '8px', marginBottom: '24px', fontSize: '14px' }}>
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#1A1A1A', marginBottom: '8px' }}>Full name</label>
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+                placeholder="Mary Jain"
+                style={{ width: '100%', border: '1px solid #D1D5DB', borderRadius: '8px', padding: '12px 16px', fontSize: '14px', color: '#1A1A1A', outline: 'none', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#1A1A1A', marginBottom: '8px' }}>Email address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="you@example.com"
+                style={{ width: '100%', border: '1px solid #D1D5DB', borderRadius: '8px', padding: '12px 16px', fontSize: '14px', color: '#1A1A1A', outline: 'none', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#1A1A1A', marginBottom: '8px' }}>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={8}
+                placeholder="Min 8 characters"
+                style={{ width: '100%', border: '1px solid #D1D5DB', borderRadius: '8px', padding: '12px 16px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }}
+              />
+              <p style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>Must be at least 8 characters</p>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              style={{ width: '100%', backgroundColor: loading ? '#ccc' : '#005DAA', color: 'white', padding: '14px', borderRadius: '8px', fontWeight: '600', fontSize: '14px', border: 'none', cursor: loading ? 'not-allowed' : 'pointer' }}
+            >
+              {loading ? 'Creating account...' : 'Create Account'}
+            </button>
+          </form>
+
+          <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #F3F4F6', textAlign: 'center' }}>
+            <p style={{ fontSize: '14px', color: '#666' }}>
+              Already have an account?{' '}
+              <Link to="/login" style={{ color: '#005DAA', fontWeight: '600', textDecoration: 'none' }}>Sign in</Link>
+            </p>
           </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Mary Jain"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={8}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Min 8 characters"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-900 text-white py-2 rounded-md hover:bg-blue-800 transition disabled:opacity-50"
-          >
-            {loading ? 'Creating account...' : 'Create Account'}
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-gray-500 mt-6">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline">
-            Sign in
-          </Link>
-        </p>
+        </div>
       </div>
     </div>
   );
