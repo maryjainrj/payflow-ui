@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {
   Zap, Smartphone, Shield, BarChart2, CreditCard,
-  Lock, Coffee, Leaf, Database, Atom, Container,
-  Activity, UserPlus, CheckCircle, Rocket, ChevronDown, ChevronUp
+  Lock, UserPlus, CheckCircle, Rocket, ChevronDown, ChevronUp
 } from 'lucide-react';
 
 export default function Landing() {
